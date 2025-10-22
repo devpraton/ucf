@@ -1,0 +1,73 @@
+
+\documentclass[12pt]{spec}
+
+\usepackage{minted}
+
+\begin{document}
+
+\specheader
+\bigskip
+\hrule
+
+\spectitle{Universal Complaint Format Specification}{VERSION: v0.1}
+
+\specjust{A standardized open-source TOML-based format for registering generic
+complaints against public or private entities. This format
+is \textbf{citizen-facing} and focuses on interoperability across different
+complaint systems, departments, and municipalities.}
+
+\specnote{It is \textbf{not} designed for internal workflow or tracking by public departments.}
+
+\input{structure.tex}
+
+\section{Mandatory sections}
+\begin{spectable}{Section}{Purpose}
+  \spectabelrow{[ucf-meta]}{Meta-information about file version, generator, timestamps}
+  \spectabelrow{[complainant-details]}{Citizen identity and contact details}
+  \spectabelrow{[complaint-details]}{Core complaint description and classification}
+  \spectabelrow{[location]}{Location of the issue (as coordinates or link)}
+  \spectabelrow{[[attachment-details]]}{List of zero or more attachments (image, video, etc.)}
+  \spectabelrow{[complaint-status]}{Complaint state and optional status notes}
+\end{spectable}
+
+\newpage
+\input{example_ucf.tex}
+
+\section{[ucf-meta]}
+
+Metadata describing this UCF file.
+
+\begin{specpara}{Why TOML?}
+
+\href{https://toml.io/en}{TOML} is human-readable, simple, and supported across many
+programming \href{https://github.com/toml-lang/toml/wiki}{languages}. Its 
+well-defined syntax ensures minimal ambiguity, making UCF files easy to parse, 
+validate, and generate.
+
+\end{specpara}
+
+\begin{specitemize}{Additional Notes}
+
+  \item Autopopulation:  Apps can automatically fill fields
+like `name`, `contact`, `location`, and `auth-id` from user profiles and device
+metadata.
+
+  \item Hashing / Blockchain:  A hash (e.g., SHA256 of the entire `.ucf` file)
+can be embedded or stored separately in on-chain complaint registries for
+verification.
+
+  \item Extensibility:  Departments can introduce new optional tables
+(e.g., `[complaint-meta]`, `[response-records]`) without breaking
+compatibility.
+
+  \item Interoperability:  Because TOML is widely supported, implementations in
+various languages (Python, Go, Rust, Node.js, etc.) can easily parse or
+generate `.ucf` files.
+
+  \item Privacy Considerations:  Sensitive citizen information (e.g., contact
+numbers, precise coordinates) should be encrypted or excluded from public
+blockchain entries.
+
+\end{specitemize}
+
+\end{document}

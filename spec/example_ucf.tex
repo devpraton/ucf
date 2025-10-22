@@ -1,0 +1,46 @@
+
+ \begin{minted}[bgcolor=black!5]{toml}
+
+ # ========================
+ # UNIVERSAL COMPLAINT FILE
+ # ========================
+
+ [ucf-meta]
+ version = "0.1"
+ generated-at = "2025-10-22T17:20:00+05:30"
+ source-app = "MyCitizenApp"
+
+ [complainant-details]
+ name = "ABC Kumar"
+ contact = "1234567890"
+ email = "abc@example.com"        # optional
+ auth-id = "citizen_02349"        # optional unique user identifier
+
+ [complaint-details]
+ description = "Garbage not cleaned for 3 days"
+ category = "sanitation"
+ department = "bbmp"
+ priority = "high"                # low/normal/high
+ submission-method = "app"        # web/app/kiosk/helpline
+ attachment = true
+ related-ticket-id = ""           # optional, for linked submissions
+
+ [location]
+ method = "url"                    # url / coordinates
+ url = "https://maps.app.goo.gl/8fwXBzzBW4oocjth7"
+ latitude = "13.00753"
+ longitude = "77.65592"
+
+ [[attachment-details]]
+ url = "https://photos.app.goo.gl/4MsLGvJeGZoWUyL67"
+ file-type = "image/jpeg"
+ description = "Photo of garbage dump"
+ hash = "b1946ac92492d2347c6235b4d2611184"
+
+ [complaint-status]
+ status = "submitted"              # submitted / in-process / closed
+ latest-comments = ""
+ last-updated = "2025-10-22T17:25:00+05:30"
+ tracker-link = ""                 # optional, if public tracking available
+ 
+ \end{minted}
