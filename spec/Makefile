@@ -9,7 +9,7 @@ out_dir:
 	@mkdir -p $(OUTPUT)
 
 $(OUTPUT)/%.pdf: %.tex spec.cls | out_dir
-	@tectonic -Z shell-escape $< -o out/
+	@tectonic -c minimal -X compile $< -o out/
 	@echo "GEN $@"
 
 clean:

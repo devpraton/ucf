@@ -1,8 +1,6 @@
 
 \documentclass[12pt]{spec}
 
-\usepackage{minted}
-
 \begin{document}
 
 \specheader
@@ -10,6 +8,8 @@
 \hrule
 
 \spectitle{Universal Complaint Format Specification}{VERSION: v0.1}
+
+\section{Overview}
 
 \specjust{A standardized open-source TOML-based format for registering generic
 complaints against public or private entities. This format
@@ -20,23 +20,25 @@ complaint systems, departments, and municipalities.}
 
 \input{structure.tex}
 
-\section{Mandatory sections}
-\begin{spectable}{Section}{Purpose}
-  \spectabelrow{[ucf-meta]}{Meta-information about file version, generator, timestamps}
-  \spectabelrow{[complainant-details]}{Citizen identity and contact details}
-  \spectabelrow{[complaint-details]}{Core complaint description and classification}
-  \spectabelrow{[location]}{Location of the issue (as coordinates or link)}
-  \spectabelrow{[[attachment-details]]}{List of zero or more attachments (image, video, etc.)}
-  \spectabelrow{[complaint-status]}{Complaint state and optional status notes}
-\end{spectable}
+\input{section_descriptions.tex}
 
-\newpage
+% TODO: wrap this in a box
 \input{example_ucf.tex}
 
-\section{[ucf-meta]}
+\section{Compliance}
 
-Metadata describing this UCF file.
+A file is considered UCF-compliant if:
 
+\begin{itemize}
+  \item It conforms to TOML v1.0.0.
+  \item It includes the mandatory sections and required keys.
+  \item Datetime should be RFC 3339 formatted.
+  \item Booleans should be lowercase true/false.
+  \item Optional sections, if present, respect type and naming rules.
+  \item Arrays: Only [[]] are allowed for repeated structures (attachments)
+\end{itemize}
+
+\section{FAQs}
 \begin{specpara}{Why TOML?}
 
 \href{https://toml.io/en}{TOML} is human-readable, simple, and supported across many
@@ -46,7 +48,8 @@ validate, and generate.
 
 \end{specpara}
 
-\begin{specitemize}{Additional Notes}
+\section{Notes}
+\begin{specitemize}{Features}
 
   \item Autopopulation:  Apps can automatically fill fields
 like `name`, `contact`, `location`, and `auth-id` from user profiles and device

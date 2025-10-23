@@ -1,0 +1,154 @@
+
+\section{Mandatory sections}
+
+\begin{spectable}{Section}{Purpose}
+  \spectablerow{[ucf-meta]}{Meta-information about file version, generator, timestamps}
+  \spectablerow{[complainant-details]}{Citizen identity and contact details}
+  \spectablerow{[complaint-details]}{Core complaint description and classification}
+  \spectablerow{[location]}{Location of the issue (as coordinates or link)}
+  \spectablerow{[[attachment-details]]}{List of zero or more attachments (image, video, etc.)}
+  \spectablerow{[complaint-status]}{Complaint state and optional status notes}
+\end{spectable}
+
+\section{Mandatory sections descriptions}
+
+\subsection{[ucf-meta]}
+
+Metadata describing this UCF file.
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{version}{string}{yes}{UCF specification version (e.g., "0.2")}
+  \specsubtablerow{generated-at}{datetime (RFC 3339)}{yes}{UTC or local datetime of file creation}
+  \specsubtablerow{source-app}{string}{yes}{Name or identifier of the application that generated this file}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[ucf-meta]
+version = "0.2"
+generated-at = "2025-10-22T17:30:00+05:30"
+source-app = "MyCitizenApp"
+\end{lstlisting}
+
+\subsection{[complainant-details]}
+
+Basic details about the complainant (sometimes auto-populated).
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{name}{string}{yes}{Full name of complainant}
+  \specsubtablerow{contact}{string}{yes}{Primary contact number}
+  \specsubtablerow{email}{string}{no}{Optional email address}
+  \specsubtablerow{auth-id}{string}{no}{Unique identifier (ID from authentication system)}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[complainant-details]
+name = "ABC Kumar"
+contact = "1234567890"
+email = "abc@example.com"
+auth-id = "citizen_02349"
+\end{lstlisting}
+
+\subsection{[complaint-details]}
+
+Core description of the issue and the department responsible.
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{description}{string}{yes}{Human-readable complaint text}
+  \specsubtablerow{category}{string}{no}{Complaint theme (sanitation, traffic, etc.)}
+  \specsubtablerow{department}{string}{yes}{Target department identifier}
+  \specsubtablerow{priority}{string}{no}{One of low, normal, high}
+  \specsubtablerow{submission-method}{string}{yes}{Originating platform: app, web, kiosk, helpline, etc.}
+  \specsubtablerow{attachment}{boolean}{yes}{Whether this complaint has one or more attachments}
+  \specsubtablerow{ticket-id}{string}{no}{assigned id by the generation system}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[complaint-details]
+description = "Garbage not cleaned for 3 days"
+category = "sanitation"
+department = "bbmp"
+priority = "normal"
+submission-method = "app"
+attachment = true
+\end{lstlisting}
+
+\subsection{[location]}
+
+Defines the place related to the complaint.
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{method}{string}{yes}{How the location is represented: url or coordinates}
+  \specsubtablerow{url}{string}{conditional}{Required if method = "url"}
+  \specsubtablerow{latitude}{float}{conditional}{Required if method = "coordinates"}
+  \specsubtablerow{longitude}{float}{conditional}{Required if method = "coordinates"}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[location]
+method = "coordinates"
+latitude = 13.00753
+longitude = 77.65592
+\end{lstlisting}
+
+\subsection{[[attachment-details]]}
+
+An array of tables, each describing a single attachment.
+If no attachments exist, this section may be omitted.
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{url}{string}{yes}{Publicly accessible or signed media link}
+  \specsubtablerow{file-type}{string}{yes}{MIME type (image/jpeg, video/mp4, etc.)}
+  \specsubtablerow{description}{string}{no}{Short textual note about attachment}
+  \specsubtablerow{hash}{string}{no}{MD5 or SHA256 hash for integrity verification}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[[attachment-details]]
+url = "https://photos.app.goo.gl/4MsLGvJeGZoWUyL67"
+file-type = "image/jpeg"
+description = "Garbage pile photo"
+hash = "b1946ac92492d2347c6235b4d2611184"
+
+[[attachment-details]]
+url = "https://audio.example.org/complaint-note.mp3"
+file-type = "audio/mpeg"
+description = "Voice note describing complaint"
+hash = "ad0234829205b9033196ba818f7a872b"
+\end{lstlisting}
+
+\subsection{[complaint-status]}
+
+Describes current status of the complaint process.
+
+\begin{specsubtable}{Key}{Type}{Required}{Description}
+  \specsubtablerow{status}{string}{yes}{One of: submitted, in-process, closed}
+  \specsubtablerow{comment}{string}{no}{Optional remarks from operator or system}
+  \specsubtablerow{last-updated}{datetime}{no}{Last modification timestamp}
+  \specsubtablerow{tracker-link}{string}{no}{External link to track live progress}
+\end{specsubtable}
+
+Example:
+\medskip
+\begin{lstlisting}[language=bash]
+[complaint-status]
+status = "submitted"
+comments = ""
+last-updated = "2025-10-22T17:32:00+05:30"
+tracker-link = ""
+\end{lstlisting}
+
+\section{Optional Extensions}
+
+Departments or applications may define additional sections using custom tables,
+each new table should use either a prefix naming scheme ([custom.<name>]) or
+include a namespace hint to avoid collision.

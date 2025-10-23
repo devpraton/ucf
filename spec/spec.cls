@@ -14,6 +14,17 @@
 \usepackage[top=1in, bottom=0.5in, left=0.75in, right=0.75in]{geometry}
 \usepackage{graphicx}
 \usepackage{array}
+\usepackage{listings}
+\lstdefinestyle{speclistingstyle}{
+    basicstyle=\ttfamily, % Standardschrift
+    numbers=left,               % Ort der Zeilennummern
+    numberstyle=\tiny,          % Stil der Zeilennummern
+    aboveskip= 0pt,
+    emphstyle=\textbf,
+    frame=single
+}
+
+\lstset{style=speclistingstyle}
 
 % Increase the space between table rows
 \renewcommand{\arraystretch}{1}
@@ -40,7 +51,8 @@
 % Reference to last page number
 \usepackage{lastpage}
 
-\usepackage{lmodern}
+\usepackage{verbatim}
+\usepackage{fancybox}
 
 \usepackage{fontspec}
 \setmainfont{texgyrepagella}[
@@ -218,7 +230,6 @@
     \textbf{#1} & \textbf{#2} \\
     \midrule
   }{
-    \bottomrule
   \end{longtable}
 
   % Fixed vertical whitespace in case the table uses up all the stretch space
@@ -229,8 +240,39 @@
 %	SPEC TABLE ROW DEFINITION
 %----------------------------------------------------------------------------------------
 % Arguments: 1) description 2) quantity 3) unit price 4) note
-\newcommand{\spectabelrow}[2]{%
+\newcommand{\spectablerow}[2]{%
   #1 & #2 \\
+  \midrule
+}
+
+%----------------------------------------------------------------------------------------
+%	SPEC SUBTABLE ENVIRONMENT
+%----------------------------------------------------------------------------------------
+\newenvironment{specsubtable}[4]{
+  \renewcommand{\arraystretch}{1.5}
+  % Fixed vertical whitespace in case the table uses up all the stretch space
+  \vspace{0.02\textheight} %
+
+  % Define table column widths and alignments (L, R or C for left, right or center alignment)
+  \begin{longtable}[H]{@{} L{0.15\textwidth} L{0.10\textwidth}  L{0.10\textwidth}  L{0.50\textwidth}}%
+    \toprule
+    % Header row
+    \textbf{#1} & \textbf{#2} & \textbf{#3} & \textbf{#4} \\
+    \midrule
+  }{
+  \end{longtable}
+
+  % Fixed vertical whitespace in case the table uses up all the stretch space
+  \vspace{0.02\textheight}
+}
+
+%----------------------------------------------------------------------------------------
+%	SPEC SUBTABLE ROW DEFINITION
+%----------------------------------------------------------------------------------------
+% Arguments: 1) col-1 2) col-2 3) col-3 4) col-4
+\newcommand{\specsubtablerow}[4]{%
+  #1 & #2 & #3 & #4\\
+  \midrule
 }
 
 %----------------------------------------------------------------------------------------
@@ -268,6 +310,15 @@
         \begin{itemize}[itemsep=1pt, parsep=0pt, leftmargin=*]
 }{
         \end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	SPEC LISTING DEFINITION
+%----------------------------------------------------------------------------------------
+\newenvironment{speclisting}{
+        \begin{verbatim}
+}{
+        \end{verbatim}
 }
 
 %----------------------------------------------------------------------------------------
