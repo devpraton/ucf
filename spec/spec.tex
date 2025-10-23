@@ -7,7 +7,7 @@
 \bigskip
 \hrule
 
-\spectitle{Universal Complaint Format Specification}{VERSION: v0.1}
+\spectitle{Universal Complaint Format Specification}{VERSION: v0.1 | Author: Prathu Baronia}
 
 \section{Overview}
 
@@ -39,38 +39,39 @@ A file is considered UCF-compliant if:
 \end{itemize}
 
 \section{FAQs}
-\begin{specpara}{Why TOML?}
 
+\begin{specpara}{Why TOML?}
 \href{https://toml.io/en}{TOML} is human-readable, simple, and supported across many
 programming \href{https://github.com/toml-lang/toml/wiki}{languages}. Its 
 well-defined syntax ensures minimal ambiguity, making UCF files easy to parse, 
 validate, and generate.
-
 \end{specpara}
 
-\section{Notes}
-\begin{specitemize}{Features}
+\begin{specpara}{Which fields will be autopopulated?}
+Fields like `name`, `contact`, `location`, and `auth-id` from user profiles and
+device metadata.
+\end{specpara}
 
-  \item Autopopulation:  Apps can automatically fill fields
-like `name`, `contact`, `location`, and `auth-id` from user profiles and device
-metadata.
+\begin{specpara}{How blockchain helps here?}
+A hash (e.g., SHA256 of the entire `.ucf` file) can be embedded or stored
+separately in on-chain complaint registries for verification.
+\end{specpara}
 
-  \item Hashing / Blockchain:  A hash (e.g., SHA256 of the entire `.ucf` file)
-can be embedded or stored separately in on-chain complaint registries for
-verification.
-
-  \item Extensibility:  Departments can introduce new optional tables
+\begin{specpara}{Is it extensible?}
+Departments can introduce new optional tables
 (e.g., `[complaint-meta]`, `[response-records]`) without breaking
 compatibility.
+\end{specpara}
 
-  \item Interoperability:  Because TOML is widely supported, implementations in
-various languages (Python, Go, Rust, Node.js, etc.) can easily parse or
-generate `.ucf` files.
+\begin{specpara}{Is it interoperable?}
+Because TOML is widely supported, implementations in various languages (Python,
+Go, Rust, Node.js, etc.) can easily parse or generate `.ucf` files. So
+multiple system implementations can work easily with the same format.
+\end{specpara}
 
-  \item Privacy Considerations:  Sensitive citizen information (e.g., contact
-numbers, precise coordinates) should be encrypted or excluded from public
-blockchain entries.
-
-\end{specitemize}
+\begin{specpara}{Is privacy a concern here?}
+Sensitive citizen information (e.g., name, contact numbers) would be encrypted.
+The plain text citizen info shown above is just for ease of readability.
+\end{specpara}
 
 \end{document}

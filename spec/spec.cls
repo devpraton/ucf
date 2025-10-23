@@ -224,11 +224,11 @@
   \vspace{0.02\textheight} %
 
   % Define table column widths and alignments (L, R or C for left, right or center alignment)
-  \begin{longtable}[H]{@{} L{0.25\textwidth} L{0.65\textwidth}}%
-    \toprule
+  \begin{longtable}[H]{@{} | C{0.25\textwidth} | L{0.65\textwidth} |}%
+    \hline
     % Header row
     \textbf{#1} & \textbf{#2} \\
-    \midrule
+    \hline
   }{
   \end{longtable}
 
@@ -242,7 +242,7 @@
 % Arguments: 1) description 2) quantity 3) unit price 4) note
 \newcommand{\spectablerow}[2]{%
   #1 & #2 \\
-  \midrule
+  \hline
 }
 
 %----------------------------------------------------------------------------------------
@@ -254,11 +254,11 @@
   \vspace{0.02\textheight} %
 
   % Define table column widths and alignments (L, R or C for left, right or center alignment)
-  \begin{longtable}[H]{@{} L{0.15\textwidth} L{0.10\textwidth}  L{0.10\textwidth}  L{0.50\textwidth}}%
-    \toprule
+  \begin{longtable}[H]{@{} | C{0.15\textwidth} | C{0.10\textwidth} | C{0.10\textwidth} | L{0.50\textwidth} |}%
+    \hline
     % Header row
     \textbf{#1} & \textbf{#2} & \textbf{#3} & \textbf{#4} \\
-    \midrule
+    \hline
   }{
   \end{longtable}
 
@@ -272,7 +272,7 @@
 % Arguments: 1) col-1 2) col-2 3) col-3 4) col-4
 \newcommand{\specsubtablerow}[4]{%
   #1 & #2 & #3 & #4\\
-  \midrule
+  \hline
 }
 
 %----------------------------------------------------------------------------------------
@@ -338,7 +338,7 @@
   \expandafter\ifstrequal\expandafter{#2}{}{}{{\large #2}}
 
   % Vertical whitespace
-  \vspace{0.025\textheight}
+  \vspace{0.015\textheight}
 }
 
 %----------------------------------------------------------------------------------------

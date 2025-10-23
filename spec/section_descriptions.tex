@@ -18,8 +18,8 @@ Metadata describing this UCF file.
 
 \begin{specsubtable}{Key}{Type}{Required}{Description}
   \specsubtablerow{version}{string}{yes}{UCF specification version (e.g., "0.2")}
-  \specsubtablerow{generated-at}{datetime (RFC 3339)}{yes}{UTC or local datetime of file creation}
-  \specsubtablerow{source-app}{string}{yes}{Name or identifier of the application that generated this file}
+  \specsubtablerow{generated-at}{datetime}{yes}{UTC or local datetime of file creation}
+  \specsubtablerow{source-app}{string}{yes}{Identifier of the application that generated this file}
 \end{specsubtable}
 
 Example:
@@ -51,6 +51,8 @@ contact = "1234567890"
 email = "abc@example.com"
 auth-id = "citizen_02349"
 \end{lstlisting}
+
+\specnote{Sensitive complainant details would be encrypted. This is just for readability sake.}
 
 \subsection{[complaint-details]}
 
